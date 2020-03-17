@@ -1,0 +1,62 @@
+---
+title: "bball ref scraping"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(httr)
+library(rvest)
+library(devtools)
+library(jsonlite)
+```
+
+```{r}
+# Scraping the per game average data for each player
+
+nba_pg =read_html("https://www.basketball-reference.com/leagues/NBA_2020_per_game.html") 
+nba_pg_table = html_table(nba_pg)
+player_stats_pg = data.frame(nba_pg_table)
+player_stats_pg = player_stats_pg %>%
+  mutate_at(vars(Rk, Age, G, GS, MP, FG, FGA, FG., X3P, X3PA, X3P., X2P, eFG., FT, FTA, FT., ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS), funs(as.numeric)) %>%
+  drop_na
+stats_pg = player_stats_pg %>%
+  group_by(PTS) %>%
+  arrange(desc(PTS))
+
+stats_pg
+```
+
+
+```{r}
+# Scraping the per 36 minutes data for each player
+
+nba_p36 =read_html("https://www.basketball-reference.com/leagues/NBA_2020_per_minute.html") 
+nba_p36_table = html_table(nba_p36)
+player_stats_p36 = data.frame(nba_p36_table)
+player_stats_p36 = player_stats_p36 %>%
+  mutate_at(vars(Rk ,Age ,G ,GS ,MP ,FG ,FGA, FG., X3P, X3PA, X3P., X2P, FT, FTA, FT., ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS), funs(as.numeric)) %>%
+  drop_na
+stats_p36 = player_stats_p36 %>%
+  group_by(PTS) %>%
+  arrange(desc(PTS))
+
+stats_p36
+```
+
+```{r}
+# Scraping the per 36 minutes data for each player
+
+nba_total =read_html("https://www.basketball-reference.com/leagues/NBA_2020_totals.html") 
+nba_total_table = html_table(nba_total)
+player_stats_total = data.frame(nba_total_table)
+player_stats_total = player_stats_total %>%
+  mutate_at(vars(Rk, Age, G, GS, MP, FG, FGA, FG., X3P, X3PA, X3P., X2P, eFG., FT, FTA, FT., ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS), funs(as.numeric)) %>%
+  drop_na
+stats_total = player_stats_total %>%
+  group_by(PTS) %>%
+  arrange(desc(PTS))
+
+stats_total
+```
+
