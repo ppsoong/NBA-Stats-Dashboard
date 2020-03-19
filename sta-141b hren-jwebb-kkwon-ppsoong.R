@@ -14,7 +14,6 @@ library(styler)
 
 
 
-
 nba <- read_html("https://www.basketball-reference.com/leagues/NBA_2020_per_game.html")
 nba_table <- html_table(nba)
 player_stats <- data.frame(nba_table)
@@ -26,8 +25,6 @@ players <- player_stats %>%
 teams <- player_stats %>%
   select(Tm) %>%
   unique()
-
-# by_team <- player_stats %>% group_by(Tm) %>% arrange(Tm) %>% arrange(Player)#added this jw
 
 ui <- fluidPage(
   theme = shinytheme("slate"),
@@ -75,7 +72,6 @@ ui <- fluidPage(
 
 
 
-
         # Main panel for displaying outputs
         mainPanel(
           "Main",
@@ -89,6 +85,7 @@ ui <- fluidPage(
               plotOutput("plot2", width = "100%")
             ),
 
+            
 
             tabPanel(
               "Pie Chart",
