@@ -1,2 +1,2 @@
-# sta141b-final-project
+# Basketball Reference Dashboard
  STA 141B Final Project
